@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# md5: e7138c4b379954dc0656d4659647fbe4
+# md5: 03b30ed52e63c836173000356406d066
 #!/usr/bin/env python
 # coding: utf-8
 
@@ -141,16 +141,16 @@ def send_email(recipient_info_list, cc_info_list, message_body, assignment_num, 
   if not really_send:
     print(message)
     return
-  #response = sg.send(message)
-  #print(response.status_code)
-  #print(response.body)
-  #print(response.headers)
+  response = sg.send(message)
+  print(response.status_code)
+  print(response.body)
+  print(response.headers)
 
 
 
 def main():
-  assignment_num = 1
-  really_send = False
+  assignment_num = 2
+  really_send = True
   parsed_feedback = parse_feedback(str(assignment_num) + '.csv')
   for team_name in list_teams():
     feedback = parsed_feedback[team_name]
