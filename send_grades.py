@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# md5: 03b30ed52e63c836173000356406d066
+# md5: 456873fea5b466b728ee39d3b36aee9e
 #!/usr/bin/env python
 # coding: utf-8
 
@@ -139,7 +139,7 @@ def send_email(recipient_info_list, cc_info_list, message_body, assignment_num, 
     }
   ]
   if not really_send:
-    print(message)
+    print(message_body)
     return
   response = sg.send(message)
   print(response.status_code)
@@ -149,10 +149,13 @@ def send_email(recipient_info_list, cc_info_list, message_body, assignment_num, 
 
 
 def main():
-  assignment_num = 2
-  really_send = True
+  assignment_num = '7 Regrade'
+  really_send = False
   parsed_feedback = parse_feedback(str(assignment_num) + '.csv')
   for team_name in list_teams():
+    if team_name not in parsed_feedback:
+      print('===== skipping team: ' + team_name + ' ======')
+      continue
     feedback = parsed_feedback[team_name]
     email_body = yaml.safe_dump(feedback, default_flow_style = False, allow_unicode = True)
     send_email(get_members_on_team(team_name), get_grader_info_list(), email_body, assignment_num, really_send)
